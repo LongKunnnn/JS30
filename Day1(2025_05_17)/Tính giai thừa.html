@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang = 'en'>
+<head>
+    <meta charset = 'UTF-8'
+    <meta name = 'viewport' content = 'width = device-width, initial-scale = 1.0'>
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function TinhGiaiThua(n){
+            var p = 1
+            for (var i = 1; i <= n; i++){
+                p = p*i;
+            }
+            return p;
+        }
+        var n = parseInt(prompt('Nhập số nguyên n :'));
+        if ( n <= 0){
+            document.write('N không phải số nguyên dương!')
+        } else {
+            document.write('Giai thừa của ',n,' là:' ,TinhGiaiThua(n));
+        }
+    </script>
+</body>
+</html>
