@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang = 'en'>
+<head>
+    <meta charset = 'UTF-8'
+    <meta name = 'viewport' content = 'width = device-width, initial-scale = 1.0'>
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function KiemTraMatKhau(matkhau){
+            if (matkhau.length < 8) return false;
+            if (!/[A-Z]/.test(matkhau)) return false;
+            if (!/[a-z]/.test(matkhau)) return false;
+            if (!/[\d]/.test(matkhau)) return false;
+            return true;
+
+        }
+        var matkhau = prompt('Nhập mật khẩu :');
+        document.write(KiemTraMatKhau(matkhau));
+    </script>
+</body>
+</html>
