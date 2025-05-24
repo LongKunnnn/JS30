@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang = 'vi'>
+<head>
+    <meta charset = 'UTF-8'>
+    <title>Sudoku Trái Cây</title>
+    <style>
+        body{
+            font-family : Arial, sans-serif;
+            text-align : center;
+            background-color : #fffde6;
+            margin : 0;
+            padding : 20px;
+        }
+
+        h1 {
+            font-size : 36px;
+            margin-bottom : 20px;
+            color : #000;
+        }
+
+        .grid {
+            display : grid;
+            grid-template-columns : repeat(3,100px);
+            grid-gap : 10px;
+            justify-content : center;
+            margin-bottom : 30px;
+        }
+
+        .grid img, .answers img {
+            width : 100px;
+            height : 100px;
+            border : 2px solid #ddd;
+            background-color : #fff9db;
+            padding : 5px;
+            box-sizing : border-box;
+        }
+
+        .empty {
+            width : 100px;
+            height : 100px;
+            border : 2px dashed #aaa;
+            background-color : #fff9db;
+        }
+
+        .answers {
+            display : flex;
+            justify-content : center;
+            gap : 20px;
+        }
+
+        h2 {
+            margin-top : 10px;
+            font-size : 24px;
+            color : #000;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sudoku Trái Cây</h1>
+    <div class = 'grid'>
+        <img src = 'https://img.pikbest.com/wp/202417/fruit-strawberry-cartoon-vector-illustration-design-fruits-premium-isolated_10529578.jpg!w700wp' alt = 'Dâu'>
+        <img src = 'https://cdn.tgdd.vn//GameApp/1347941//Quacamviendam(1)-800x600.jpg' alt = 'Cam'>
+        <img src = 'https://img.lovepik.com/element/40138/7214.png_860.png' alt = 'Nho'>
+
+        <img src = 'https://img.lovepik.com/element/40138/7214.png_860.png' alt = 'Nho'>
+        <img src = 'https://img.pikbest.com/wp/202417/fruit-strawberry-cartoon-vector-illustration-design-fruits-premium-isolated_10529578.jpg!w700wp' alt = 'Dâu'>
+        <div class = 'empty'></div>
+        
+        <img src = 'https://cdn.tgdd.vn//GameApp/1347941//Quacamviendam(1)-800x600.jpg' alt = 'Cam'>
+        <div class = 'empty'></div>
+        <img src = 'https://img.pikbest.com/wp/202417/fruit-strawberry-cartoon-vector-illustration-design-fruits-premium-isolated_10529578.jpg!w700wp' alt = 'Dâu'>
+
+    </div>
+
+    <h2>Ô đáp án</h2>
+    <div class = 'answers'>
+        <img src = 'https://img.lovepik.com/element/40138/7214.png_860.png' alt = 'Nho'>
+        <img src = 'https://img.pikbest.com/wp/202417/fruit-strawberry-cartoon-vector-illustration-design-fruits-premium-isolated_10529578.jpg!w700wp' alt = 'Dâu'>
+        <img src = 'https://cdn.tgdd.vn//GameApp/1347941//Quacamviendam(1)-800x600.jpg' alt = 'Cam'>
+    </div>
+</body>
+</html>
