@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang = 'vi'>
+<head>
+    <meta charset = 'UTF-8'>
+    <title>Thêm sinh viên</title>
+    <style>
+        body {
+            font-family : Arial, sans-serif;
+            background-color : #f8f8f8;
+            text-align : center;
+            padding : 30px;
+        }
+
+        .form-container {
+            background : white;
+            display : inline-block;
+            padding : 20px 30px;
+            border-radius : 8px;
+            box-shadow : 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .form-container input {
+            width : 300px;
+            padding : 8px;
+            margin : 10px 0;
+            border : 1px solid #ccc;
+            border-radius : 4px;
+        }
+
+        .form-container button {
+            padding : 10px 20px;
+            background-color : #28a745;
+            color : white;
+            border : none;
+            border-radius : 4px;
+            cursor : pointer;
+        }
+
+        .form-container button:hover {
+            background-color : #218838;
+        }
+
+        table {
+            margin-top : 30px;
+            width : 90%;
+            margin-left : auto;
+            margin-right : auto;
+            border-collapse : collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding : 12px;
+            text-align : center;
+        }
+
+        th {
+            background-color : #f2f2f2;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <h2>Thêm sinh viên vào danh sách</h2>
+
+    <div class = 'form-container'>
+        <input type = 'text' id = 'masv' placeholder = 'Mã sinh viên'><br>
+        <input type = 'text' id = 'hoten' placeholder = 'Họ tên'><br>
+        <input type = 'text' id = 'email' placeholder = 'Email'><br>
+        <input type = 'text' id = 'sdt' placeholder = 'Số điện thoại'><br>
+        <button onclick = 'themSinhVien()'>Thêm</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Mã Sinh Viên</th>
+                <th>Họ tên</th>
+                <th>Email</th>
+                <th>Số điện thoại</th>
+            </tr>
+        </thead>
+
+        <tbody id = 'danhsach'>
+
+        </tbody>
+    </table>
+
+    <script>
+        function themSinhVien() {
+            const masv = document.getElementById('masv').value;
+            const hoten = document.getElementById('hoten').value;
+            const email = document.getElementById('email').value;
+            const sdt = document.getElementById('sdt').value;
+
+            if (!masv || !hoten || !email || !sdt) {
+                alert('Vui lòng nhập đủ thông tin!');
+                return;
+            }
+
+            const newRow = document.createElement('tr');
+
+            const cellMasv = document.createElement('td');
+            const cellHoten = document.createElement('td');
+            const cellEmail = document.createElement('td');
+            const cellSdt = document.createElement('td');
+
+            cellMasv.textContent = masv;
+            cellHoten.textContent = hoten;
+            cellEmail.textContent = email;
+            cellSdt.textContent = sdt;
+
+            newRow.appendChild(cellMasv);
+            newRow.appendChild(cellHoten);
+            newRow.appendChild(cellEmail);
+            newRow.appendChild(cellSdt);
+
+            document.getElementById('danhsach').appendChild(newRow);
+
+            document.getElementById('masv').value = '';
+            document.getElementById('hoten').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('sdt').value = '';
+
+            
+        }
+    </script>
+</body>
+</html>
