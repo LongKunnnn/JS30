@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang = 'vi'>
+<head>
+    <meta charset = 'UTF-8'>
+    <title>Thêm sinh viên</title>
+    <style>
+        body {
+            font-family : Arial, sans-serif;
+            background-color : #f8f8f8;
+            text-align : center;
+            padding : 30px;
+        }
+
+        .form-container {
+            background : white;
+            display : inline-block;
+            padding : 20px 30px;
+            border-radius : 8px;
+            box-shadow : 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .form-container input {
+            width : 300px;
+            padding : 8px;
+            margin : 10px 0;
+            border : 1px solid #ccc;
+            border-radius : 4px;
+        }
+
+        .form-container button {
+            padding : 10px 20px;
+            background-color : #28a745;
+            color : white;
+            border : none;
+            border-radius : 4px;
+            cursor : pointer;
+        }
+
+        .form-container button:hover {
+            background-color : #218838;
+        }
+
+        table {
+            margin-top : 30px;
+            width : 90%;
+            margin-left : auto;
+            margin-right : auto;
+            border-collapse : collapse;
+        }
+
+        table, th, td {
+            border : 1px solid #ddd;
+        }
+
+        th, td {
+            padding : 12px;
+            text-align : center;
+        }
+
+        th {
+            background-color : #f2f2f2;
+        }
+
+    </style>
+</head>
+
+<body>
+    <h2>Thêm sinh viên vào danh sách</h2>
+
+    <div class = 'form-container'>
+        <input type = 'text' id = 'masv' placeholder = 'Mã sinh viên'><br>
+        <input type = 'text' id = 'hoten' placeholder = 'Họ tên'><br>
+        <input type = 'text' id = 'email' placeholder = 'Email'><br>
+        <input type = 'text' id = 'sdt' placeholder = 'Số điện thoại'><br>
+        <button id = 'btn-action' onclick = 'themSinhVien()'>Thêm</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Mã Sinh Viên</th>
+                <th>Họ Tên</th>
+                <th>Email</th>
+                <th>Số Điện Thoại</th>
+                <th>Hành Động</th>
+            </tr>
+        </thead>
+        <tbody id = 'danhsach'></tbody>
+    </table>
+
+    <script>
+        let editRow = null;
+        function themSinhVien() {
+            const masv = document.getElementById('masv').value;
+            const hoten = document.getElementById('hoten').value;
+            const email = document.getElementById('email').value;
+            const sdt = document.getElementById('sdt').value;
+
+            if (!masv || !hoten || !email || !sdt) {
+                alert('Vui lòng nhập đầy đủ thông tin!');
+                return;
+            }
+
+            if (editRow) {
+                editRow.cells[0].textContent = masv;
+                editRow.cells[1].textContent = hoten;
+                editRow.cells[2].textContent = email;
+                editRow.cells[3].textContent = sdt;
+
+                editRow = null;
+                document.getElementById('btn-action').textContent = 'Thêm';
+            } else {
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td>${masv}</td>
+                    <td>${hoten}</td>
+                    <td>${email}</td>
+                    <td>${sdt}</td>
+                    <td><button onclick = 'suaSinhVien(this)'>Sửa</button></td>
+                `;
+                document.getElementById('danhsach').appendChild(newRow);
+            }
+            resetForm();
+
+        }
+
+        function suaSinhVien(button) {
+            const row = button.parentElement.parentElement;
+            document.getElementById('masv').value = row.cells[0].textContent;
+            document.getElementById('hoten').value = row.cells[1].textContent;
+            document.getElementById('email').value = row.cells[2].textContent;
+            document.getElementById('sdt').value = row.cells[3].textContent;
+
+            editRow = row;
+            document.getElementById('btn-action').textContent = 'Lưu';
+        }
+
+        function resetForm() {
+            document.getElementById('masv').value = '';
+            document.getElementById('hoten').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('sdt').value = '';
+        }
+    </script>
+</body>
+</html>
