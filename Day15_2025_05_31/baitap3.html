@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang = 'vi'>
+<head>
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class Product {
+            constructor(id, name, price, quantity) {
+                this.id = id;
+                this.name = name;
+                this.price = price;
+                this.quantity = quantity;
+            }
+        }
+
+        let productList = [];
+
+        function addProduct(product) {
+            productList.push(product);
+        }
+
+        function calculateTotalInventory() {
+            return productList.reduce((total, product) => total + product.price * product.quantity, 0);
+        }
+
+        function findMostExpensiveProduct() {
+            return productList.reduce((max, product) => (product.price > max.price ? product : max));
+        }
+
+        addProduct(new Product(1, 'Giày Ananas', 500000, 10));
+        addProduct(new Product(2, 'Áo Polo', 150000, 15));
+        addProduct(new Product(3, 'Quần Jean' , 300000, 20));
+
+        console.log('Tổng giá trị hàng tồn kho :', calculateTotalInventory());
+
+        const expensive = findMostExpensiveProduct();
+        console.log('Sản phẩm có giá cao nhất:' , expensive.name, '- Giá', expensive.price);
+    </script>
+</body>
+</html>

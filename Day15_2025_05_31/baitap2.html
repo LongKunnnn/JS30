@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang = 'vi'>
+<head>
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class Employee {
+            constructor(name, position, baseSalary, workingDays) {
+                this.name = name;
+                this.position = position;
+                this.baseSalary = baseSalary;
+                this.workingDays = workingDays;
+            }
+
+            calculateSalary() {
+                return this.baseSalary * this.workingDays;
+    
+            }
+
+            show() {
+                console.log(`Name: ${this.name}`);
+                console.log(`Position: ${this.position}`);
+                console.log(`baseSalary: ${this.baseSalary}`);
+                console.log(`workingDays: ${this.workingDays}`);
+                console.log(`-----------------------------------`);
+            }
+        }
+
+        const emp1 = new Employee('Dang Hoang Long', 'Data Engineer', 500, 22);
+        emp1.show();
+    </script>
+</body>
+</html>
