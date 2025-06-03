@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Quản Lý Sản Phẩm</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    input, button {
+      margin: 5px;
+      padding: 5px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      text-align: center;
+      padding: 8px;
+    }
+    th {
+      background-color: #f0f0f0;
+    }
+    button {
+      cursor: pointer;
+    }
+    .edit-btn {
+      background-color: orange;
+      border: none;
+      padding: 5px 10px;
+      color: white;
+    }
+    .delete-btn {
+      background-color: crimson;
+      border: none;
+      padding: 5px 10px;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Quản Lý Sản Phẩm</h2>
+
+  <input type="text" id="id" placeholder="ID">
+  <input type="text" id="name" placeholder="Tên">
+  <input type="text" id="price" placeholder="Giá">
+  <input type="text" id="quantity" placeholder="Số lượng">
+  <button onclick="handleAdd()">Thêm</button>
+
+  <!-- Ô tìm kiếm theo ID -->
+  <br>
+  <input type="text" id="searchId" placeholder="Tìm theo ID">
+  <button onclick="searchProductById()">Search</button>
+  <button onclick="renderProducts()">Hiện tất cả</button>
+
+  <table id="productTable">
+    <tr>
+      <th>ID</th>
+      <th>Tên</th>
+      <th>Giá</th>
+      <th>Số lượng</th>
+      <th>Tổng giá trị</th>
+      <th>Hành động</th>
+    </tr>
+  </table>
+
+  <p id="totalValue"><strong>Tổng giá trị tồn kho:</strong></p>
+  <p id="mostExpensive"><strong>Sản phẩm đắt nhất:</strong></p>
+
+  <script>
+    class Product {
+      constructor(id, name, price, quantity) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+      }
+      getTotalPrice() {
+        return this.price * this.quantity;
+      }
+    }
+
+    let products = [];
+
+    function handleAdd() {
+      const id = document.getElementById("id").value.trim();
+      const name = document.getElementById("name").value.trim();
+      const price = parseFloat(document.getElementById("price").value);
+      const quantity = parseInt(document.getElementById("quantity").value);
+
+      if (!id || !name || isNaN(price) || isNaN(quantity)) {
+        alert("Vui lòng nhập đầy đủ và đúng định dạng.");
+        return;
+      }
+
+      if (products.some(p => p.id === id)) {
+        alert("ID đã tồn tại. Vui lòng chọn ID khác.");
+        return;
+      }
+
+      const product = new Product(id, name, price, quantity);
+      products.push(product);
+      clearForm();
+      renderProducts();
+    }
+
+    function clearForm() {
+      document.getElementById("id").value = '';
+      document.getElementById("name").value = '';
+      document.getElementById("price").value = '';
+      document.getElementById("quantity").value = '';
+    }
+
+    function renderProducts(filtered = null) {
+      const table = document.getElementById("productTable");
+      table.innerHTML = `
+        <tr>
+          <th>ID</th>
+          <th>Tên</th>
+          <th>Giá</th>
+          <th>Số lượng</th>
+          <th>Tổng giá trị</th>
+          <th>Hành động</th>
+        </tr>
+      `;
+
+      const displayList = filtered || products;
+
+      displayList.forEach(product => {
+        const row = table.insertRow();
+        row.innerHTML = `
+          <td>${product.id}</td>
+          <td>${product.name}</td>
+          <td>${product.price.toLocaleString()} VNĐ</td>
+          <td>${product.quantity}</td>
+          <td>${product.getTotalPrice().toLocaleString()} VNĐ</td>
+          <td>
+            <button class="edit-btn" onclick="editProduct('${product.id}')">Sửa</button>
+            <button class="delete-btn" onclick="deleteProduct('${product.id}')">Xóa</button>
+          </td>
+        `;
+      });
+
+      // Tổng giá trị tồn kho
+      const total = displayList.reduce((sum, p) => sum + p.getTotalPrice(), 0);
+      document.getElementById("totalValue").innerHTML = `<strong>Tổng giá trị tồn kho:</strong> ${total.toLocaleString()} VNĐ`;
+
+      // Sản phẩm đắt nhất
+      if (displayList.length > 0) {
+        const max = displayList.reduce((max, p) => p.price > max.price ? p : max, displayList[0]);
+        document.getElementById("mostExpensive").innerHTML =
+          `<strong>Sản phẩm đắt nhất:</strong> ${max.name} (${max.price.toLocaleString()} VNĐ)`;
+      } else {
+        document.getElementById("mostExpensive").innerHTML = `<strong>Sản phẩm đắt nhất:</strong> Không có sản phẩm`;
+      }
+    }
+
+    function deleteProduct(id) {
+      products = products.filter(p => p.id !== id);
+      renderProducts();
+    }
+
+    function editProduct(id) {
+      const product = products.find(p => p.id === id);
+      document.getElementById("id").value = product.id;
+      document.getElementById("name").value = product.name;
+      document.getElementById("price").value = product.price;
+      document.getElementById("quantity").value = product.quantity;
+      deleteProduct(id);
+    }
+
+    function searchProductById() {
+      const searchId = document.getElementById("searchId").value.trim();
+      if (!searchId) {
+        alert("Vui lòng nhập mã sản phẩm để tìm kiếm.");
+        return;
+      }
+      const found = products.find(p => p.id === searchId);
+      if (found) {
+        renderProducts([found]);
+      } else {
+        alert("Không tìm thấy sản phẩm với ID này.");
+        renderProducts([]);
+      }
+    }
+  </script>
+
+</body>
+</html>
